@@ -1,92 +1,96 @@
-# Yellow-Taxi-Ride-Management-App-
-Yellow Taxi Ride Management App
-This project implements a ride management system for a taxi service, named gatorTaxi, using a combination of a Red-Black Tree and a Min-Heap data structure to efficiently handle ride requests and assignments. The software is designed to manage ride requests based on their ride number, cost, and trip duration.
+# Yellow Taxi Ride Management App
 
-Problem Statement
-The core goal is to efficiently manage all ride requests for gatorTaxi. This requires the use of a Red-Black Tree for searching and a Min-Heap for prioritizing rides. The system must handle a variety of functions, including insertion, deletion, and updates, while maintaining optimal time complexities.
+This project implements a ride management system for a fictional taxi service, **gatorTaxi**, using a combination of a **Min-Heap** and a **Red-Black Tree** to efficiently manage ride requests.
 
-A ride is defined by the triplet: (rideNumber, rideCost, tripDuration).
+## 📌 Problem Statement
 
-Data Structures
-The application relies on two primary data structures:
+Efficiently manage ride requests using:
+- **Red-Black Tree** for fast search, insert, delete, and range queries.
+- **Min-Heap** for quick access to the ride with the lowest cost (with tie-breaker on trip duration).
 
-Min-Heap
-A min-heap is used to quickly retrieve the next available ride based on the lowest ride cost. If two rides have the same cost, the one with the lowest trip duration is selected.
+Each ride is represented as a triplet:
 
-Insert: O(
-logn)
 
-Get Minimum (GetNextRide): O(1)
+---
 
-Delete (arbitrary): O(
-logn)
+## 🧱 Data Structures
 
-Red-Black Tree
-A self-balancing binary search tree that stores ride information. It is used for efficient searching, printing a range of rides, and deleting specific rides.
+### 1. Min-Heap
 
-Insert: O(
-logn)
+Used to retrieve the ride with the **lowest cost**, breaking ties using **tripDuration**.
 
-Delete: O(
-logn)
+| Operation       | Time Complexity |
+|----------------|------------------|
+| Insert         | O(log n)         |
+| Get Minimum    | O(1)             |
+| Delete (any)   | O(log n)         |
 
-Search: O(
-logn)
+### 2. Red-Black Tree
 
-These two data structures are interlinked within a HeapRBT class to ensure efficient operation. The Red-Black Tree holds a reference to the Min-Heap index, allowing for quick lookups and deletions.
+Self-balancing binary search tree to store and manage rides by `rideNumber`.
 
-Key Functions
-The application is built around the following functionalities, with their corresponding time complexities:
+| Operation       | Time Complexity |
+|----------------|------------------|
+| Insert         | O(log n)         |
+| Delete         | O(log n)         |
+| Search         | O(log n)         |
+| Range Query    | O(log n + S)     |
 
-Function
+`S` = number of rides in the queried range.
 
-Description
+Both structures are synchronized through a wrapper class (`HeapRBT`) that ensures integrity between the two.
 
-Time Complexity
+---
 
-Print(rideNumber)
+## ⚙️ Key Functionalities
 
-Prints the triplet for a specific ride.
+| Function                        | Description                                                                 | Time Complexity |
+|---------------------------------|-----------------------------------------------------------------------------|------------------|
+| `Print(rideNumber)`            | Prints details of a specific ride.                                          | O(log n)         |
+| `Print(rideNumber1, rideNumber2)` | Prints all rides within the given ride number range.                     | O(log n + S)     |
+| `Insert(rideNumber, rideCost, tripDuration)` | Adds a new ride.                                             | O(log n)         |
+| `GetNextRide()`                | Retrieves and removes the ride with the lowest cost and trip duration.     | O(log n)         |
+| `CancelRide(rideNumber)`       | Deletes a ride from both Min-Heap and Red-Black Tree.                      | O(log n)         |
+| `UpdateTrip(rideNumber, new_tripDuration)` | Updates the duration and possibly cost of an existing ride.   | O(log n)         |
 
-O(
-logn)
+---
 
-Print(rideNumber1, rideNumber2)
+## 🛠️ Implementation Details
 
-Prints all rides within a specified range.
+- The application reads commands from an input text file.
+- Uses a custom `rideNode` structure to represent each ride.
+  - Contains ride details, heap index, and color for RBT.
+- A switch/case structure is used to call the corresponding function per input line.
+- The program maintains synchronization between the Min-Heap and Red-Black Tree via cross-referencing.
 
-O(
-logn+S), where S is the number of rides in the range.
+---
 
-Insert(rideNumber, rideCost, tripDuration)
+## 📂 Example Input Format
 
-Adds a new ride request.
 
-O(
-logn)
+---
 
-GetNextRide()
+## ✅ Project Highlights
 
-Retrieves and removes the ride with the lowest cost and trip duration.
+- Achieves required time complexities for all core operations.
+- Effectively combines Min-Heap and Red-Black Tree to balance performance and functionality.
+- Modular, maintainable, and efficient.
 
-O(
-logn)
+---
 
-CancelRide(rideNumber)
+## 📎 How to Run
 
-Deletes a ride from both data structures.
+1. Compile the source code (e.g., using `javac` or your preferred compiler).
+2. Provide the input commands in a text file.
+3. Run the program to process the commands and observe the output.
 
-O(
-logn)
+---
 
-UpdateTrip(rideNumber, new_tripDuration)
+## 📧 Contact
 
-Modifies a ride's duration, potentially with a penalty to the ride cost.
+For questions or collaboration:
+- Author: Preetham
+- Email: prreetham.20@gmail.com
 
-O(
-logn)
+---
 
-Implementation Details
-The application is designed to process commands from an input text file. It uses a rideNode structure to store each ride's information, including its heap index and color for the Red-Black Tree. A switch statement is used to call the appropriate function based on the input string.
-
-The project successfully meets all requirements and achieves the necessary time complexities for each operation.
